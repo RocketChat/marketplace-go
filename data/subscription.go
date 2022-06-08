@@ -2,6 +2,8 @@ package events
 
 import (
 	"time"
+
+	"github.com/RocketChat/marketplace-go/events"
 )
 
 // SubscriptionStatus defines the current subscription status
@@ -28,11 +30,11 @@ var (
 type Subscription struct {
 	// Type defines a unique key.
 	// This help allow us to create the create when we only have the json representation of this data
-	Type EventObjectType `bson:"objectType" json:"objectType"`
+	Type events.EventObjectType `bson:"objectType" json:"objectType"`
 
-	App App `bson:"app" json:"app"`
+	App events.App `bson:"app" json:"app"`
 
-	Workspace Workspace `bson:"workspace" json:"workspace"`
+	Workspace events.Workspace `bson:"workspace" json:"workspace"`
 
 	Pricing Pricing `bson:"pricing"  json:"pricing"`
 
