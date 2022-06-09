@@ -15,10 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Configure git for private modules
-        env:
-          PRIVATE_REPO_ACCESS_KEY: ${{ secrets.PRIVATE_REPO_ACCESS_KEY }}
-        run: git config --global url."https://rocketchat-cloudbot:$PRIVATE_REPO_ACCESS_KEY@github.com".insteadOf "https://github.com"
+
       - name: golangci-lint
         uses: golangci/golangci-lint-action@v2
         with:
