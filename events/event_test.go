@@ -9,7 +9,7 @@ import (
 	"github.com/RocketChat/marketplace-go/events"
 )
 
-func TestNew(t *testing.T) {
+func TestNewPurchase(t *testing.T) {
 	app := events.App{
 		ID:       "app-id",
 		Version:  "1.0.0",
@@ -47,6 +47,55 @@ func TestNew(t *testing.T) {
 	// Checking if we can unmarshal the event back to the original data
 	if ev.Data.(data.Purchase).Type != events.PurchaseDataType {
 		t.Errorf("Expecting event data type %s, got %s", events.PurchaseDataType, ev.Data.(data.Purchase).Type)
+	}
+}
+
+func TestNewSubscription(t *testing.T) {
+	app := events.App{
+		ID:       "app-id",
+		Version:  "1.0.0",
+		Name:     "my test app",
+		IsBundle: false,
+	}
+
+	w := events.Workspace{
+		ID:       "workspace-id",
+		NickName: "my test workspace",
+		Address:  "https://mytestworkspace.example.com",
+	}
+
+	d := data.Subscription{
+		Type:      events.SubscriptionDataType,
+		App:       app,
+		Workspace: w,
+		Pricing: data.Pricing{
+			Name:          "my example pricing",
+			Price:         1.0,
+			IsUsageBased:  false,
+			Recurrence:    data.MonthlyRecurrence,
+			TrialEnabled:  true,
+			TrialDuration: 15,
+		},
+		Status:      data.SubscriptionStatusActive,
+		PeriodStart: time.Now(),
+		IsBundle:    false,
+	}
+
+	ev := events.New(events.AppSubscribedEventType, d)
+
+	// Checking the event type
+	if ev.Type != events.AppSubscribedEventType {
+		t.Errorf("Expecting event type %s, got %s", events.AppSubscribedEventType, ev.Type)
+	}
+
+	// checking the prefix
+	if strings.HasPrefix(ev.ID, "evt_") == false {
+		t.Errorf("Expecting event id to start with evt_, got %s", ev.ID)
+	}
+
+	// Checking if we can unmarshal the event back to the original data
+	if ev.Data.(data.Subscription).Type != events.SubscriptionDataType {
+		t.Errorf("Expecting event data type %s, got %s", events.SubscriptionDataType, ev.Data.(data.Subscription).Type)
 	}
 }
 
