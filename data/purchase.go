@@ -1,17 +1,19 @@
-package events
+package data
 
 import (
 	"time"
+
+	"github.com/RocketChat/marketplace-go/events"
 )
 
 // Purchase defines a set of keys for a purchase event.
 type Purchase struct {
 	// Type defines a unique key.
 	// This help allow us to create the create when we only have the json representation of this data
-	Type EventObjectType `bson:"objectType" json:"objectType"`
+	Type events.EventObjectType `bson:"objectType" json:"objectType"`
 
-	App       App       `bson:"app" json:"app"`
-	Workspace Workspace `bson:"workspace" json:"workspace"`
+	App       events.App       `bson:"app" json:"app"`
+	Workspace events.Workspace `bson:"workspace" json:"workspace"`
 
 	Pricing OneTimePricing `bson:"pricing" json:"pricing"`
 

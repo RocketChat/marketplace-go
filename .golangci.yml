@@ -1,0 +1,75 @@
+# Documentation https://golangci-lint.run/usage/linters
+
+issues:
+  fix: true
+
+run:
+  timeout: 10m
+  issues-exit-code: 1
+  tests: false
+  skip-dirs-use-default: true
+
+linters:
+  enable:
+    - bodyclose
+    - deadcode
+    - depguard
+    - dogsled
+    - dupl
+    - errcheck
+    - errname
+    - exhaustive
+    - exportloopref
+    - goconst
+    - gocritic #TODO: https://go-critic.com/overview.html
+    - gocyclo
+    - gofmt #TODO: maybe use Gofumpt instead
+    - goimports
+    - gomnd
+    - gosec
+    - gosimple
+    - govet
+    - grouper
+    - ifshort
+    - ineffassign
+    - misspell
+    - nilerr
+    - nilnil
+    - nlreturn
+    - nolintlint
+    - predeclared
+    - staticcheck
+    - structcheck
+    # - tagliatelle unfortunately, we are too inconsistent with this for it to be useful
+    - typecheck
+    - unconvert
+    - unused
+    - varcheck
+    - wastedassign
+    - whitespace
+    - wsl #TODO: https://golangci-lint.run/usage/linters/#wsl
+
+linters-settings:
+  gocyclo:
+    min-complexity: 75 # we currently have extremely high complexity functions; we will be slowly dropping this over time to pay the technical debt
+  goimports:
+    local-prefixes: github.com/RocketChat/marketplace-api
+  gomnd:
+    ignored-functions:
+      - "utils.Generate*"
+      - "core.AddMigration"
+  misspell:
+    locale: US
+  nlreturn:
+    block-size: 2
+  tagliatelle:
+    case:
+      use-field-name: true
+      rules:
+        json: camel
+        yaml: camel
+        bson: camel
+  wsl:
+    allow-assign-and-call: false
+    allow-multiline-assign: false
+    force-err-cuddling: true

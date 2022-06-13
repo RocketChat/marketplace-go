@@ -116,11 +116,11 @@ type Event struct {
 	When time.Time `bson:"when" json:"when"`
 
 	// Data has the event specific payload
-	Data any `bson:"data" json:"data"`
+	Data interface{} `bson:"data" json:"data"`
 }
 
 // New creates a new event with the status of created
-func New(name EventType, data any) Event {
+func New(name EventType, data interface{}) Event {
 	return Event{
 		ID:         fmt.Sprintf("evt_%s", xid.New().String()),
 		Type:       name,

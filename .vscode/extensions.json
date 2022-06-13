@@ -1,0 +1,9 @@
+{
+    "recommendations": [
+        "editorconfig.editorconfig",
+        "maptz.regionfolder",
+        "golang.go",
+        "christian-kohler.path-intellisense",
+        "wayou.vscode-todo-highlight"
+    ]
+}
