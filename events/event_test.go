@@ -1,6 +1,7 @@
 package events_test
 
 import (
+	"encoding/json"
 	"strings"
 	"testing"
 	"time"
@@ -44,9 +45,14 @@ func TestNewPurchase(t *testing.T) {
 		t.Errorf("Expecting event id to start with evt_, got %s", ev.ID)
 	}
 
+	var purchaseData data.Purchase
+	if err := json.Unmarshal(ev.Data, &purchaseData); err != nil {
+		t.Errorf("Unable to unmarshall the purchase data: %s", err.Error())
+	}
+
 	// Checking if we can unmarshal the event back to the original data
-	if ev.Data.(data.Purchase).Type != events.PurchaseDataType {
-		t.Errorf("Expecting event data type %s, got %s", events.PurchaseDataType, ev.Data.(data.Purchase).Type)
+	if purchaseData.Type != events.PurchaseDataType {
+		t.Errorf("Expecting event data type %s, got %s", events.PurchaseDataType, purchaseData.Type)
 	}
 }
 
@@ -93,9 +99,14 @@ func TestNewSubscription(t *testing.T) {
 		t.Errorf("Expecting event id to start with evt_, got %s", ev.ID)
 	}
 
+	var subscriptionData data.Subscription
+	if err := json.Unmarshal(ev.Data, &subscriptionData); err != nil {
+		t.Errorf("Unable to unmarshall the subscription data: %s", err.Error())
+	}
+
 	// Checking if we can unmarshal the event back to the original data
-	if ev.Data.(data.Subscription).Type != events.SubscriptionDataType {
-		t.Errorf("Expecting event data type %s, got %s", events.SubscriptionDataType, ev.Data.(data.Subscription).Type)
+	if subscriptionData.Type != events.SubscriptionDataType {
+		t.Errorf("Expecting event data type %s, got %s", events.SubscriptionDataType, subscriptionData.Type)
 	}
 }
 
