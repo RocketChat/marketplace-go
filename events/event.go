@@ -35,9 +35,10 @@ type BundleInfo struct {
 
 // Workspace defines the workspace where the event was triggered
 type Workspace struct {
-	ID       string `bson:"id" json:"id"`
-	NickName string `bson:"nickName" json:"nickName"`
-	Address  string `bson:"address" json:"address"`
+	ID        string `bson:"id" json:"id"`
+	AccountID string `bson:"accountId" json:"accountId"`
+	NickName  string `bson:"nickName" json:"nickName"`
+	Address   string `bson:"address" json:"address"`
 }
 
 //#region APIVersion
