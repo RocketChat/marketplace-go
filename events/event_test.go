@@ -19,9 +19,10 @@ func TestNewPurchase(t *testing.T) {
 	}
 
 	w := events.Workspace{
-		ID:       "workspace-id",
-		NickName: "my test workspace",
-		Address:  "https://mytestworkspace.example.com",
+		ID:        "workspace-id",
+		AccountID: "account-id",
+		NickName:  "my test workspace",
+		Address:   "https://mytestworkspace.example.com",
 	}
 
 	d := data.Purchase{
@@ -65,9 +66,10 @@ func TestNewSubscription(t *testing.T) {
 	}
 
 	w := events.Workspace{
-		ID:       "workspace-id",
-		NickName: "my test workspace",
-		Address:  "https://mytestworkspace.example.com",
+		ID:        "workspace-id",
+		AccountID: "account-id",
+		NickName:  "my test workspace",
+		Address:   "https://mytestworkspace.example.com",
 	}
 
 	d := data.Subscription{
