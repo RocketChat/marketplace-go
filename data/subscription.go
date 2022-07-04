@@ -57,6 +57,9 @@ type Subscription struct {
 
 	// FromBundleID indicates which bundle id triggered this subscription event for the app
 	FromBundleID string `bson:"fromBundleId,omitempty" json:"fromBundleId,omitempty"`
+
+	// MigratedToBundle indicates if the subscription was migrated from a single app subscription to a bundle subscription
+	MigratedToBundle bool `bson:"migratedToBundle,omitempty" json:"migratedToBundle,omitempty"`
 }
 
 //#region PricingRecurrence
