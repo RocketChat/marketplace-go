@@ -48,7 +48,7 @@ type APIVersion string
 
 const (
 	// CurrentAPIVersion specify the lastest API version
-	CurrentAPIVersion APIVersion = "0.1.0"
+	CurrentAPIVersion APIVersion = "1.1.0"
 )
 
 //#endregion APIVersion
