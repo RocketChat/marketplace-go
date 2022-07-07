@@ -16,11 +16,11 @@ const (
 	// a subscription is modified
 	AppSubscriptionModifiedEventType EventType = "app.subscription.modified"
 
+	// AppSubscriptionMigratedEventType defines the event related to when a subscription is migrate to use the bundle
+	AppSubscriptionMigratedEventType EventType = "app.subscription.migrated"
+
 	// AppPurchasedEventType indicates which type the struct is. Could make it easier for us data map this event from the database
 	AppPurchasedEventType EventType = "app.purchase.created"
-
-	// AppBundleSubscriptionMigratedEventType defines the event related to when a subscription is migrate to use the bundle
-	AppBundleSubscriptionMigratedEventType EventType = "app.subscription.bundle.migrated"
 )
 
 func (et EventType) Valid() bool {
