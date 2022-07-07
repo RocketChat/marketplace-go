@@ -24,6 +24,9 @@ const (
 )
 
 func (et EventType) Valid() bool {
-	return et == AppSubscribedEventType || et == AppPurchasedEventType ||
-		et == AppSubscriptionCancelledEventType || et == AppSubscriptionModifiedEventType
+	return et == AppSubscribedEventType ||
+		et == AppPurchasedEventType ||
+		et == AppSubscriptionCancelledEventType ||
+		et == AppSubscriptionModifiedEventType ||
+		et == AppSubscriptionMigratedEventType
 }
