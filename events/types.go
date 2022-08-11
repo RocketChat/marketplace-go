@@ -21,6 +21,13 @@ const (
 
 	// AppPurchasedEventType indicates which type the struct is. Could make it easier for us data map this event from the database
 	AppPurchasedEventType EventType = "app.purchase.created"
+
+	// AppBundleRestrictedEventType happens when an app is restricted to a bundle
+	// When an app is restricted to a bundle, it means the app can only be used if you subscribe the bundle
+	AppBundleRestrictedEventType EventType = "app.bundle.restricted"
+
+	// AppBundleUnrestrictedEventType happens when an app is unrestricted to a bundle
+	AppBundleUnrestrictedEventType EventType = "app.bundle.unrestricted"
 )
 
 func (et EventType) Valid() bool {
@@ -28,5 +35,7 @@ func (et EventType) Valid() bool {
 		et == AppPurchasedEventType ||
 		et == AppSubscriptionCancelledEventType ||
 		et == AppSubscriptionModifiedEventType ||
-		et == AppSubscriptionMigratedEventType
+		et == AppSubscriptionMigratedEventType ||
+		et == AppBundleRestrictedEventType ||
+		et == AppBundleUnrestrictedEventType
 }

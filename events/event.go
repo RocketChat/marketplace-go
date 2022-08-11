@@ -24,6 +24,9 @@ type App struct {
 
 	BundledAppIDs []string     `bson:"bundledAppIds,omitempty" json:"bundledAppIds,omitempty"`
 	BundledIn     []BundleInfo `bson:"bundledIn,omitempty" json:"bundledIn,omitempty"` // BundledIn only includes id and name
+
+	RestrictToBundle     bool   `bson:"restrictToBundle" json:"restrictToBundle"`
+	RestrictedToBundleID string `bson:"restrictedToBundleId" json:"restrictedToBundleId"`
 }
 
 // BundleInfo defines information about a bundle when the app is included in a bundle.
@@ -48,7 +51,7 @@ type APIVersion string
 
 const (
 	// CurrentAPIVersion specify the lastest API version
-	CurrentAPIVersion APIVersion = "1.1.0"
+	CurrentAPIVersion APIVersion = "1.2.0"
 )
 
 //#endregion APIVersion
