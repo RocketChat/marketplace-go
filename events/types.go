@@ -29,11 +29,11 @@ const (
 	// AppBundleUnrestrictedEventType happens when an app is unrestricted to a bundle
 	AppBundleUnrestrictedEventType EventType = "app.bundle.unrestricted"
 
-	// BundleRestrictionAddedEventType happens when a bundle is restricted to an app
-	BundleRestrictionAddedEventType EventType = "bundle.restriction.added"
+	// BundleAppAddedEventType happens when a bundle is restricted to an app
+	BundleAppAddedEventType EventType = "bundle.app.added"
 
-	// BundleRestrictionRemovedEventType happens when a bundle is unrestricted to an app
-	BundleRestrictionRemovedEventType EventType = "bundle.restriction.removed"
+	// BundleAppRemovedEventType happens when a bundle is unrestricted to an app
+	BundleAppRemovedEventType EventType = "bundle.app.removed"
 )
 
 // Valid events will look for all available events type we have. If the event is one of them, than it's valid
@@ -55,5 +55,5 @@ func (et EventType) ValidAppEvent() bool {
 
 // ValidBundleEvent will only look for bundle related events, so if you want to check if it's a bundle related event
 func (et EventType) ValidBundleEvent() bool {
-	return et == BundleRestrictionAddedEventType || et == BundleRestrictionRemovedEventType
+	return et == BundleAppAddedEventType || et == BundleAppRemovedEventType
 }
