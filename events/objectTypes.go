@@ -11,4 +11,8 @@ const (
 	// PurchaseDataType describes the type of the data we are holding.
 	// It allow us easily map data from the database to a struct
 	PurchaseDataType EventObjectType = "purchase"
+
+	// BundleActionDataType describes the type of the data we are holding.
+	// It allow us easily map data from the database to a struct
+	BundleActionDataType EventObjectType = "bundleAction"
 )
