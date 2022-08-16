@@ -26,7 +26,7 @@ type App struct {
 	BundledIn     []BundleInfo `bson:"bundledIn,omitempty" json:"bundledIn,omitempty"` // BundledIn only includes id and name
 
 	RestrictToBundle     bool   `bson:"restrictToBundle" json:"restrictToBundle"`
-	RestrictedToBundleID string `bson:"restrictedToBundleId" json:"restrictedToBundleId"`
+	RestrictedToBundleID string `bson:"restrictedToBundleId,omitempty" json:"restrictedToBundleId,omitempty"`
 }
 
 // BundleInfo defines information about a bundle when the app is included in a bundle.
