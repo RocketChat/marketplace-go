@@ -20,6 +20,9 @@ type Purchase struct {
 	// BoughtAt defines when the app was purchased
 	BoughtAt time.Time `bson:"boughtAt" json:"boughtAt"`
 
+	// IsSelfManaged tells us whether the purchase is managed by the user or externally managed
+	IsSelfManaged bool `bson:"isSelfManaged" json:"isSelfManaged"`
+
 	// IsBundle tells us whether the purchase is a bundle
 	IsBundle bool `bson:"isBundle" json:"isBundle"`
 

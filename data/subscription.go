@@ -47,7 +47,11 @@ type Subscription struct {
 	// PeriodEnd defines when the subscription will end
 	PeriodEnd *time.Time `bson:"periodEnd,omitempty" json:"periodEnd,omitempty"`
 
+	// TerminationDate is the date which the subscription has been terminated
 	TerminationDate *time.Time `bson:"terminationDate,omitempty" json:"terminationDate,omitempty"`
+
+	// IsSelfManaged tells us whether the subscription is managed by the user or externally managed
+	IsSelfManaged bool `bson:"isSelfManaged" json:"isSelfManaged"`
 
 	// IsBundle tells us whether the subscription is a bundle
 	IsBundle bool `bson:"isBundle" json:"isBundle"`
