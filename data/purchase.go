@@ -25,16 +25,30 @@ type OneTimePricing struct {
 }
 
 // NewPurchase creates a new Purchase event with the specified values.
-func NewPurchase(purchaseType events.EventObjectType, app events.App, workspace events.Workspace, pricing OneTimePricing, boughtAt time.Time, isSelfManaged, isBundle, fromBundle bool, fromBundleID string) Purchase {
+func NewPurchase(purchaseType events.EventObjectType, app events.App, workspace events.Workspace, pricing OneTimePricing, boughtAt time.Time, isSelfManaged, isBundle, fromBundle bool, fromBundleID string, timezone string) (Purchase, error) {
+	location, err := time.LoadLocation(timezone)
+	if err != nil {
+		return Purchase{}, err
+	}
+
 	return Purchase{
 		Type:          purchaseType,
 		App:           app,
 		Workspace:     workspace,
 		Pricing:       pricing,
-		BoughtAt:      boughtAt.UTC(),
+		BoughtAt:      boughtAt.In(location),
 		IsSelfManaged: isSelfManaged,
 		IsBundle:      isBundle,
 		FromBundle:    fromBundle,
 		FromBundleID:  fromBundleID,
+	}, nil
+}
+
+// GetBoughtAtInTimezone returns the BoughtAt time in the specified timezone.
+func (p *Purchase) GetBoughtAtInTimezone(timezone string) (time.Time, error) {
+	location, err := time.LoadLocation(timezone)
+	if err != nil {
+		return time.Time{}, err
 	}
+	return p.BoughtAt.In(location), nil
 }
