@@ -6,7 +6,6 @@ import (
 	"github.com/RocketChat/marketplace-go/events"
 )
 
-// SubscriptionStatus defines the current subscription status.
 type SubscriptionStatus string
 
 const (
@@ -17,7 +16,6 @@ const (
 	SubscriptionStatusPastDue    SubscriptionStatus = "pastDue"
 )
 
-// Subscription represents a user's subscription to an app.
 type Subscription struct {
 	Type             events.EventObjectType `bson:"objectType" json:"objectType"`
 	App              events.App             `bson:"app" json:"app"`
@@ -34,7 +32,6 @@ type Subscription struct {
 	MigratedToBundle bool                   `bson:"migratedToBundle,omitempty" json:"migratedToBundle,omitempty"`
 }
 
-// Pricing represents the pricing details for a subscription plan.
 type Pricing struct {
 	Name          string            `bson:"name,omitempty" json:"name,omitempty"`
 	Price         float32           `bson:"price" json:"price"`
@@ -44,10 +41,9 @@ type Pricing struct {
 	TrialDuration int64             `bson:"trialDuration,omitempty" json:"trialDuration,omitempty"`
 }
 
-// PricingRecurrence represents the recurrence options for pricing.
 type PricingRecurrence string
 
 const (
-	PricingRecurrenceMonthly PricingRecurrence = "monthly"
-	PricingRecurrenceYearly  PricingRecurrence = "yearly"
+	MonthlyRecurrence PricingRecurrence = "monthly"
+	YearlyRecurrence  PricingRecurrence = "yearly"
 )
