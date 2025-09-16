@@ -12,22 +12,30 @@ jobs:
 
       - name: Install Semgrep and jq
         run: |
-          pip install semgrep jq
+          pip install --upgrade pip
+          pip install --upgrade semgrep jq
+
       - name: Run Semgrep Scan and Save JSON
         run: |
-          semgrep --config p/go --json > semgrep-report.json
+          semgrep \
+            --config "https://semgrep.dev/p/golang" \
+            --json > semgrep-report.json
+
       - name: Count Critical and Error findings
         id: findings
         run: |
           count=$(jq '[.results[] | select(.extra.severity == "CRITICAL" or .extra.severity == "ERROR")] | length' semgrep-report.json)
           echo "count=$count" >> $GITHUB_OUTPUT
+
       - name: Send findings to webhook
+        if: always()
         env:
           ROCKETCHAT_WEBHOOK_URL: ${{ secrets.ROCKETCHAT_WEBHOOK_URL }}
         run: |
           curl -X POST "$ROCKETCHAT_WEBHOOK_URL" \
             -H "Content-Type: application/json" \
             --data "{\"alias\":\"Security Notifications\",\"text\":\"**Semgrep Report - ($GITHUB_REPOSITORY)**\n\n**Finding count (Critical and Error):** ${{ steps.findings.outputs.count }}\"}"
+
       - name: Print findings in logs
         run: |
           echo "=== ALL SEMGREP FINDINGS ==="
