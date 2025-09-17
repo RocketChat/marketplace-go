@@ -1,0 +1,42 @@
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 13 * * 1'
+
+jobs:
+  semgrep:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Semgrep and jq
+        run: |
+          pip install --upgrade pip
+          pip install --upgrade semgrep jq
+
+      - name: Run Semgrep Scan and Save JSON
+        run: |
+          semgrep \
+            --config "https://semgrep.dev/p/golang" \
+            --json > semgrep-report.json
+
+      - name: Count Critical and Error findings
+        id: findings
+        run: |
+          count=$(jq '[.results[] | select(.extra.severity == "CRITICAL" or .extra.severity == "ERROR")] | length' semgrep-report.json)
+          echo "count=$count" >> $GITHUB_OUTPUT
+
+      - name: Send findings to webhook
+        if: always()
+        env:
+          ROCKETCHAT_WEBHOOK_URL: ${{ secrets.ROCKETCHAT_WEBHOOK_URL }}
+        run: |
+          curl -X POST "$ROCKETCHAT_WEBHOOK_URL" \
+            -H "Content-Type: application/json" \
+            --data "{\"alias\":\"Security Notifications\",\"text\":\"**Semgrep Report - ($GITHUB_REPOSITORY)**\n\n**Finding count (Critical and Error):** ${{ steps.findings.outputs.count }}\"}"
+
+      - name: Print findings in logs
+        run: |
+          echo "=== ALL SEMGREP FINDINGS ==="
+          jq '.results[] | {rule: .check_id, file: .path, line: .start.line, severity: .extra.severity, message: .extra.message}' semgrep-report.json
