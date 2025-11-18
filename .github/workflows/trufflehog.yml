@@ -5,9 +5,18 @@ jobs:
   trufflehog-secrets-scanning:
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-      with:
-        fetch-depth: 0
-    - name: Secret Scanning
-      uses: trufflesecurity/trufflehog@main
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Secret Scanning
+        run: |
+          docker run --rm \
+            -v "${{ github.workspace }}:/src" \
+            -w /src \
+            trufflesecurity/trufflehog:latest \
+            git file:///src \
+            --since-commit ${{ github.event.pull_request.base.sha }} \
+            --branch ${{ github.event.pull_request.head.sha }} \
+            --fail
